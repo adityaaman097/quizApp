@@ -9,20 +9,22 @@ import com.algoJava.quizapp.model.QuestionWrapper;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("quiz")
 public class QuizController {
     @Autowired
     QuizService quizService;
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseEntity<String> createQuiz(@RequestParam String category, @RequestParam int numQ, @RequestParam String title){
         return quizService.createQuiz(category, numQ, title);
     }
-    @GetMapping("get/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable Integer id){
         return quizService.getQuizQuestions(id);
     }
 
-    @PostMapping("submit/{id}")
+    @PostMapping("/submit/{id}")
     public ResponseEntity<Integer> submitQuiz(@PathVariable Integer id, @RequestBody List<Response> responses){
         return quizService.calculateResult(id, responses);
     }
